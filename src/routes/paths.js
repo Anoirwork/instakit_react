@@ -302,17 +302,18 @@ export const paths = {
         edit: `${ROOTS.DASHBOARD}/tour/${MOCK_ID}/edit`,
       },
     },
+    
     //--------------------------------------
     reception: {
-      enquiry: `${ROOTS.DASHBOARD}/enquiry`,
-      visitorLog: `${ROOTS.DASHBOARD}/visitorLog`,
-      gatePass: `${ROOTS.DASHBOARD}/gatepass`,
-      complaint: `${ROOTS.DASHBOARD}/complaint`,
-      callLog: `${ROOTS.DASHBOARD}/callLog`,
-      account: `${ROOTS.DASHBOARD}/account`,
-
-      query: `${ROOTS.DASHBOARD}/query`,
-      correspondence: `${ROOTS.DASHBOARD}/correspondence`,
+      root: `${ROOTS.DASHBOARD}/reception`,
+      enquiry: `${ROOTS.DASHBOARD}/reception/enquiry`,
+      visitorLog: `${ROOTS.DASHBOARD}/reception/visitorlog`,
+      gatePass: `${ROOTS.DASHBOARD}/reception/gatepass`,
+      complaint: `${ROOTS.DASHBOARD}/reception/complaint`,
+      callLog: `${ROOTS.DASHBOARD}/reception/calllog`,
+      account: `${ROOTS.DASHBOARD}/reception/account`,
+      query: `${ROOTS.DASHBOARD}/reception/query`,
+      correspondence: `${ROOTS.DASHBOARD}/reception/correspondence`,
     },
   },
 };

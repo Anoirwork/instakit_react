@@ -6,7 +6,7 @@ import { EnquiryListView } from 'src/sections/reception/view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `User list | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Enquiry list | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
   return (

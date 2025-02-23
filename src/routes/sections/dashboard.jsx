@@ -176,14 +176,28 @@ export const dashboardRoutes = [
       { path: 'params', element: <ParamsPage /> },
       { path: 'blank', element: <BlankPage /> },
 
-      // Reception
-      { path: 'enquiry', element: <ReceptionEnquiryPage /> },
-      { path: 'visitorlog', element: <VisitorLogPage /> },
-      { path: 'gatepass', element: <GatePassPage /> },
-      { path: 'complaint', element: <ComplaintPage /> },
-      { path: 'calllog', element: <CallLogPage /> },
-      { path: 'correspondence', element: <CorrespondencePage /> },
-      { path: 'query', element: <QueryPage /> },
+      // // Reception
+      // { path: 'enquiry', element: <ReceptionEnquiryPage /> },
+      // { path: 'visitorlog', element: <VisitorLogPage /> },
+      // { path: 'gatepass', element: <GatePassPage /> },
+      // { path: 'complaint', element: <ComplaintPage /> },
+      // { path: 'calllog', element: <CallLogPage /> },
+      // { path: 'correspondence', element: <CorrespondencePage /> },
+      // { path: 'query', element: <QueryPage /> },
+
+      {
+        path: 'reception',
+        children: [
+          // { index: true, element: <ReceptionEnquiryPage /> },
+          { path:'enquiry', element: <ReceptionEnquiryPage /> },
+          { path: 'visitorlog', element: <VisitorLogPage /> },
+          { path: 'gatepass', element: <GatePassPage /> },
+          { path: 'complaint', element: <ComplaintPage /> },
+          { path: 'calllog', element: <CallLogPage /> },
+          { path: 'correspondence', element: <CorrespondencePage /> },
+          { path: 'query', element: <QueryPage /> },
+        ],
+      },
     ],
   },
 ];

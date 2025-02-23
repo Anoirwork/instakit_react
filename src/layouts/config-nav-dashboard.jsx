@@ -48,7 +48,7 @@ export const navData = [
     items: [
       {
         title: 'Reception',
-        path: paths.dashboard.user.root,
+        path: paths.dashboard.reception.root,
         icon: ICONS.user,
         children: [
           { title: 'Enquiry', path: paths.dashboard.reception.enquiry },
@@ -74,7 +74,7 @@ export const navData = [
           { title: 'Batch', path: paths.dashboard.product.new },
           { title: 'Subject', path: paths.dashboard.product.demo.edit },
           { title: 'Class Timing', path: paths.dashboard.product.demo.edit },
-          { title: 'Subject', path: paths.dashboard.product.demo.edit },
+          // { title: 'Subject', path: paths.dashboard.product.demo.edit },
           { title: 'Timetable', path: paths.dashboard.product.demo.edit },
           { title: 'Book list', path: paths.dashboard.product.demo.edit },
           { title: 'Certificate', path: paths.dashboard.product.demo.edit },
