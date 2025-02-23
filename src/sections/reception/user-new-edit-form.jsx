@@ -1,100 +1,95 @@
 import { z as zod } from 'zod';
 import { useMemo } from 'react';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, Controller } from 'react-hook-form';
-import { isValidPhoneNumber } from 'react-phone-number-input/input';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
+import Radio from '@mui/material/Radio';
 import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
+import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
+import RadioGroup from '@mui/material/RadioGroup';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
-import { fData } from 'src/utils/format-number';
-
-import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
-import { Form, Field, schemaHelper } from 'src/components/hook-form';
+import { Form, Field } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
-export const NewUserSchema = zod.object({
-  avatarUrl: schemaHelper.file({
-    message: { required_error: 'Avatar is required!' },
-  }),
+export const InquirySchema = zod.object({
+  period: zod.string().min(1, { message: 'Period is required!' }),
+  dateOfEnquiry: zod.string().min(1, { message: 'Date of enquiry is required!' }),
+  type: zod.string().min(1, { message: 'Type is required!' }),
+  source: zod.string().min(1, { message: 'Source is required!' }),
   name: zod.string().min(1, { message: 'Name is required!' }),
   email: zod
     .string()
     .min(1, { message: 'Email is required!' })
     .email({ message: 'Email must be a valid email address!' }),
-  phoneNumber: schemaHelper.phoneNumber({ isValidPhoneNumber }),
-  country: schemaHelper.objectOrNull({
-    message: { required_error: 'Country is required!' },
-  }),
-  address: zod.string().min(1, { message: 'Address is required!' }),
-  company: zod.string().min(1, { message: 'Company is required!' }),
-  state: zod.string().min(1, { message: 'State is required!' }),
-  city: zod.string().min(1, { message: 'City is required!' }),
-  role: zod.string().min(1, { message: 'Role is required!' }),
-  zipCode: zod.string().min(1, { message: 'Zip code is required!' }),
-  // Not required
-  status: zod.string(),
-  isVerified: zod.boolean(),
+  contactNumber: zod.string().min(1, { message: 'Contact number is required!' }),
+  employee: zod.string().min(1, { message: 'Employee is required!' }),
+  studentName: zod.string().min(1, { message: 'Student name is required!' }),
+  birthDate: zod.string().min(1, { message: 'Birth date is required!' }),
+  gender: zod.string().min(1, { message: 'Gender is required!' }),
+  course: zod.string().min(1, { message: 'Course is required!' }),
+  remarks: zod.string(),
+  file: zod.any().optional(),
 });
 
 // ----------------------------------------------------------------------
 
-export function UserNewEditForm({ currentUser }) {
+export function UserNewEditForm({ currentInquiry }) {
   const router = useRouter();
 
   const defaultValues = useMemo(
     () => ({
-      status: currentUser?.status || '',
-      avatarUrl: currentUser?.avatarUrl || null,
-      isVerified: currentUser?.isVerified || true,
-      name: currentUser?.name || '',
-      email: currentUser?.email || '',
-      phoneNumber: currentUser?.phoneNumber || '',
-      country: currentUser?.country || '',
-      state: currentUser?.state || '',
-      city: currentUser?.city || '',
-      address: currentUser?.address || '',
-      zipCode: currentUser?.zipCode || '',
-      company: currentUser?.company || '',
-      role: currentUser?.role || '',
+      period: currentInquiry?.period || '',
+      dateOfEnquiry: currentInquiry?.dateOfEnquiry || '',
+      type: currentInquiry?.type || '',
+      source: currentInquiry?.source || '',
+      name: currentInquiry?.name || '',
+      email: currentInquiry?.email || '',
+      contactNumber: currentInquiry?.contactNumber || '',
+      employee: currentInquiry?.employee || '',
+      studentName: currentInquiry?.studentName || '',
+      birthDate: currentInquiry?.birthDate || '',
+      gender: currentInquiry?.gender || '',
+      course: currentInquiry?.course || '',
+      remarks: currentInquiry?.remarks || '',
+      file: currentInquiry?.file || null,
     }),
-    [currentUser]
+    [currentInquiry]
   );
 
   const methods = useForm({
     mode: 'onSubmit',
-    resolver: zodResolver(NewUserSchema),
+    resolver: zodResolver(InquirySchema),
     defaultValues,
   });
 
   const {
     reset,
-    watch,
     control,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  const values = watch();
-
   const onSubmit = handleSubmit(async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      toast.success(currentUser ? 'Update success!' : 'Create success!');
-      router.push(paths.dashboard.user.list);
+      toast.success(currentInquiry ? 'Update success!' : 'Create success!');
+      router.push(paths.dashboard.inquiry.list);
       console.info('DATA', data);
     } catch (error) {
       console.error(error);
@@ -104,107 +99,7 @@ export function UserNewEditForm({ currentUser }) {
   return (
     <Form methods={methods} onSubmit={onSubmit}>
       <Grid container spacing={3}>
-        <Grid xs={12} md={4}>
-          <Card sx={{ pt: 10, pb: 5, px: 3 }}>
-            {currentUser && (
-              <Label
-                color={
-                  (values.status === 'active' && 'success') ||
-                  (values.status === 'banned' && 'error') ||
-                  'warning'
-                }
-                sx={{ position: 'absolute', top: 24, right: 24 }}
-              >
-                {values.status}
-              </Label>
-            )}
-
-            <Box sx={{ mb: 5 }}>
-              <Field.UploadAvatar
-                name="avatarUrl"
-                maxSize={3145728}
-                helperText={
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      mt: 3,
-                      mx: 'auto',
-                      display: 'block',
-                      textAlign: 'center',
-                      color: 'text.disabled',
-                    }}
-                  >
-                    Allowed *.jpeg, *.jpg, *.png, *.gif
-                    <br /> max size of {fData(3145728)}
-                  </Typography>
-                }
-              />
-            </Box>
-
-            {currentUser && (
-              <FormControlLabel
-                labelPlacement="start"
-                control={
-                  <Controller
-                    name="status"
-                    control={control}
-                    render={({ field }) => (
-                      <Switch
-                        {...field}
-                        checked={field.value !== 'active'}
-                        onChange={(event) =>
-                          field.onChange(event.target.checked ? 'banned' : 'active')
-                        }
-                      />
-                    )}
-                  />
-                }
-                label={
-                  <>
-                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                      Banned
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                      Apply disable account
-                    </Typography>
-                  </>
-                }
-                sx={{
-                  mx: 0,
-                  mb: 3,
-                  width: 1,
-                  justifyContent: 'space-between',
-                }}
-              />
-            )}
-
-            <Field.Switch
-              name="isVerified"
-              labelPlacement="start"
-              label={
-                <>
-                  <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                    Email verified
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    Disabling this will automatically send the user a verification email
-                  </Typography>
-                </>
-              }
-              sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
-            />
-
-            {currentUser && (
-              <Stack justifyContent="center" alignItems="center" sx={{ mt: 3 }}>
-                <Button variant="soft" color="error">
-                  Delete user
-                </Button>
-              </Stack>
-            )}
-          </Card>
-        </Grid>
-
-        <Grid xs={12} md={8}>
+        <Grid xs={12}>
           <Card sx={{ p: 3 }}>
             <Box
               rowGap={3}
@@ -212,32 +107,137 @@ export function UserNewEditForm({ currentUser }) {
               display="grid"
               gridTemplateColumns={{
                 xs: 'repeat(1, 1fr)',
-                sm: 'repeat(2, 1fr)',
+                sm: 'repeat(4, 1fr)',
               }}
             >
-              <Field.Text name="name" label="Full name" />
-              <Field.Text name="email" label="Email address" />
-              <Field.Phone name="phoneNumber" label="Phone number" />
+              {/* Inquiry Details - 4 columns */}
+              <FormControl fullWidth sx={{ gridColumn: 'span 1' }}>
+                <InputLabel>Select Period</InputLabel>
+                <Select name="period" label="Select Period" defaultValue="">
+                  <MenuItem value="daily">Daily</MenuItem>
+                  <MenuItem value="weekly">Weekly</MenuItem>
+                  <MenuItem value="monthly">Monthly</MenuItem>
+                </Select>
+              </FormControl>
 
-              <Field.CountrySelect
-                fullWidth
-                name="country"
-                label="Country"
-                placeholder="Choose a country"
+              <Field.Text
+                name="dateOfEnquiry"
+                label="Date of Enquiry"
+                type="date"
+                sx={{ gridColumn: 'span 1' }}
               />
 
-              <Field.Text name="state" label="State/region" />
-              <Field.Text name="city" label="City" />
-              <Field.Text name="address" label="Address" />
-              <Field.Text name="zipCode" label="Zip/code" />
-              <Field.Text name="company" label="Company" />
-              <Field.Text name="role" label="Role" />
+              <FormControl fullWidth sx={{ gridColumn: 'span 1' }}>
+                <InputLabel>Type</InputLabel>
+                <Select name="type" label="Type" defaultValue="">
+                  <MenuItem value="general">General</MenuItem>
+                  <MenuItem value="academic">Academic</MenuItem>
+                  <MenuItem value="technical">Technical</MenuItem>
+                </Select>
+              </FormControl>
+
+              <FormControl fullWidth sx={{ gridColumn: 'span 1' }}>
+                <InputLabel>Source</InputLabel>
+                <Select name="source" label="Source" defaultValue="">
+                  <MenuItem value="website">Website</MenuItem>
+                  <MenuItem value="phone">Phone</MenuItem>
+                  <MenuItem value="email">Email</MenuItem>
+                </Select>
+              </FormControl>
+
+              {/* Contact Information - 3 columns */}
+              <Field.Text name="name" label="Name" sx={{ gridColumn: 'span 1' }} />
+              <Field.Text name="email" label="Email" sx={{ gridColumn: 'span 1' }} />
+              <Field.Text
+                name="contactNumber"
+                label="Contact Number"
+                sx={{ gridColumn: 'span 1' }}
+              />
+              <Box sx={{ gridColumn: 'span 1' }} /> {/* Empty spacer to maintain 4-column layout */}
+
+              {/* Employee - 1 column */}
+              <FormControl fullWidth sx={{ gridColumn: 'span 4' }}>
+                <InputLabel>Select Employee</InputLabel>
+                <Select name="employee" label="Select Employee" defaultValue="">
+                  <MenuItem value="employee1">Employee 1</MenuItem>
+                  <MenuItem value="employee2">Employee 2</MenuItem>
+                  <MenuItem value="employee3">Employee 3</MenuItem>
+                </Select>
+              </FormControl>
+
+              {/* Student - 4 columns */}
+              <Field.Text
+                name="studentName"
+                label="Student Name"
+                sx={{ gridColumn: 'span 1' }}
+              />
+              <Field.Text
+                name="birthDate"
+                label="Birth Date"
+                type="date"
+                sx={{ gridColumn: 'span 1' }}
+              />
+
+              <FormControl component="fieldset" sx={{ gridColumn: 'span 1' }}>
+                <Typography>Gender</Typography>
+                <RadioGroup
+                  row
+                  name="gender"
+                  defaultValue=""
+                  onChange={(e) => methods.setValue('gender', e.target.value)}
+                >
+                  <FormControlLabel value="male" control={<Radio />} label="Male" />
+                  <FormControlLabel value="female" control={<Radio />} label="Female" />
+                  <FormControlLabel value="other" control={<Radio />} label="Other" />
+                </RadioGroup>
+              </FormControl>
+
+              <FormControl fullWidth sx={{ gridColumn: 'span 1' }}>
+                <InputLabel>Select Course</InputLabel>
+                <Select name="course" label="Select Course" defaultValue="">
+                  <MenuItem value="course1">Course 1</MenuItem>
+                  <MenuItem value="course2">Course 2</MenuItem>
+                  <MenuItem value="course3">Course 3</MenuItem>
+                </Select>
+              </FormControl>
+
+              {/* Remarks and File Upload - 2 columns */}
+              <Field.Text
+                name="remarks"
+                label="Remarks"
+                multiline
+                rows={4}
+                sx={{ gridColumn: 'span 2' }}
+              />
+
+              <Field.Upload
+                name="file"
+                label="Upload File"
+                accept="application/pdf,application/doc,image/*"
+                multiple={false}
+                sx={{ gridColumn: 'span 2' }}
+              />
             </Box>
 
-            <Stack alignItems="flex-end" sx={{ mt: 3 }}>
-              <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {!currentUser ? 'Create user' : 'Save changes'}
-              </LoadingButton>
+            <Stack direction="row" justifyContent="space-between" sx={{ mt: 3 }}>
+              <Box>
+                <Button type="button" variant="outlined" onClick={() => reset()}>
+                  Reset
+                </Button>
+                <FormControlLabel
+                  control={<Switch name="keepAdding" />}
+                  label="Keep Adding"
+                  sx={{ ml: 2 }}
+                />
+              </Box>
+              <Box>
+                <Button type="button" variant="contained" color="error">
+                  Cancel
+                </Button>
+                <Button type="submit" variant="contained" sx={{ ml: 2 }} disabled={isSubmitting}>
+                  Save
+                </Button>
+              </Box>
             </Stack>
           </Card>
         </Grid>

@@ -304,15 +304,15 @@ export const paths = {
     },
     //--------------------------------------
     reception: {
-      enquiry: `${ROOTS.DASHBOARD}/user/list`,
-      visitorLog: `${ROOTS.DASHBOARD}/user/new`,
-      gatePass: `${ROOTS.DASHBOARD}/user/list`,
-      complaint: `${ROOTS.DASHBOARD}/user/cards`,
-      callLog: `${ROOTS.DASHBOARD}/user/profile`,
-      account: `${ROOTS.DASHBOARD}/user/account`,
+      enquiry: `${ROOTS.DASHBOARD}/enquiry`,
+      visitorLog: `${ROOTS.DASHBOARD}/visitorLog`,
+      gatePass: `${ROOTS.DASHBOARD}/gatepass`,
+      complaint: `${ROOTS.DASHBOARD}/complaint`,
+      callLog: `${ROOTS.DASHBOARD}/callLog`,
+      account: `${ROOTS.DASHBOARD}/account`,
 
-      query: `${ROOTS.DASHBOARD}/user/account`,
-      correspondence: `${ROOTS.DASHBOARD}/user/account`,
+      query: `${ROOTS.DASHBOARD}/query`,
+      correspondence: `${ROOTS.DASHBOARD}/correspondence`,
     },
   },
 };

@@ -66,6 +66,15 @@ const PermissionDeniedPage = lazy(() => import('src/pages/dashboard/permission')
 const ParamsPage = lazy(() => import('src/pages/dashboard/params'));
 const BlankPage = lazy(() => import('src/pages/dashboard/blank'));
 
+// Reception
+const ReceptionEnquiryPage = lazy(() => import('src/pages/dashboard/reception/enquiry'));
+const VisitorLogPage = lazy(() => import('src/pages/dashboard/reception/visitorlog'));
+const GatePassPage = lazy(() => import('src/pages/dashboard/reception/gatepass'));
+const ComplaintPage = lazy(() => import('src/pages/dashboard/reception/complaint'));
+const CallLogPage = lazy(() => import('src/pages/dashboard/reception/calllog'));
+const CorrespondencePage = lazy(() => import('src/pages/dashboard/reception/correspondence'));
+const QueryPage = lazy(() => import('src/pages/dashboard/reception/query'));
+
 // ----------------------------------------------------------------------
 
 const layoutContent = (
@@ -166,6 +175,15 @@ export const dashboardRoutes = [
       { path: 'permission', element: <PermissionDeniedPage /> },
       { path: 'params', element: <ParamsPage /> },
       { path: 'blank', element: <BlankPage /> },
+
+      // Reception
+      { path: 'enquiry', element: <ReceptionEnquiryPage /> },
+      { path: 'visitorlog', element: <VisitorLogPage /> },
+      { path: 'gatepass', element: <GatePassPage /> },
+      { path: 'complaint', element: <ComplaintPage /> },
+      { path: 'calllog', element: <CallLogPage /> },
+      { path: 'correspondence', element: <CorrespondencePage /> },
+      { path: 'query', element: <QueryPage /> },
     ],
   },
 ];

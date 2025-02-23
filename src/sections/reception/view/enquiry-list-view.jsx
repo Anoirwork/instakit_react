@@ -39,7 +39,7 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { UserTableRow } from '../user-table-row';
+import { EnquiryTableRow } from '../user-table-row';
 import { UserTableToolbar } from '../user-table-toolbar';
 import { UserTableFiltersResult } from '../user-table-filters-result';
 
@@ -48,17 +48,21 @@ import { UserTableFiltersResult } from '../user-table-filters-result';
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name' },
-  { id: 'phoneNumber', label: 'Phone number', width: 180 },
-  { id: 'company', label: 'Company', width: 220 },
-  { id: 'role', label: 'Role', width: 180 },
+  { id: 'equiry', label: 'Enquiry#', width: 80 },
+  { id: 'dateOfEnquiry', label: 'Date of Enquiry', width: 180 },
+  { id: 'name', label: 'Name', width: 220 },
+  { id: 'enquiryType', label: 'Enquiry Type', width: 180 },
+  { id: 'enquirySource', label: 'Enquiry Source', width: 100 },
+  { id: 'count', label: 'Count', width: 100 },
+  { id: 'assignedTo', label: 'Assigned To', width: 100 },
   { id: 'status', label: 'Status', width: 100 },
+  { id: 'createdAt', label: 'Created At', width: 100 },
   { id: '', width: 88 },
 ];
 
 // ----------------------------------------------------------------------
 
-export function UserListView() {
+export function EnquiryListView() {
   const table = useTable();
 
   const router = useRouter();
@@ -243,7 +247,7 @@ export function UserListView() {
                       table.page * table.rowsPerPage + table.rowsPerPage
                     )
                     .map((row) => (
-                      <UserTableRow
+                      <EnquiryTableRow
                         key={row.id}
                         row={row}
                         selected={table.selected.includes(row.id)}

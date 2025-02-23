@@ -21,7 +21,7 @@ import { UserQuickEditForm } from './user-quick-edit-form';
 
 // ----------------------------------------------------------------------
 
-export function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
+export function EnquiryTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
   const confirm = useBoolean();
 
   const popover = usePopover();
@@ -32,8 +32,12 @@ export function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRo
     <>
       <TableRow hover selected={selected} aria-checked={selected} tabIndex={-1}>
         <TableCell padding="checkbox">
-          <Checkbox id={row.enqiryNumber} checked={selected} onClick={onSelectRow} />
+          <Checkbox id={row.enquiryNumber} checked={selected} onClick={onSelectRow} />
         </TableCell>
+
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{row.enquiryNumber}</TableCell>
+
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{row.dateOfEnquiry}</TableCell>
 
         <TableCell>
           <Stack spacing={2} direction="row" alignItems="center">
@@ -71,6 +75,8 @@ export function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRo
             {row.status}
           </Label>
         </TableCell>
+
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{row.createdAt}</TableCell>
 
         <TableCell>
           <Stack direction="row" alignItems="center">
