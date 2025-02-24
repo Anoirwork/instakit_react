@@ -68,7 +68,7 @@ const BlankPage = lazy(() => import('src/pages/dashboard/blank'));
 
 // Reception
 const ReceptionEnquiryPage = lazy(() => import('src/pages/dashboard/reception/enquiry'));
-const VisitorLogPage = lazy(() => import('src/pages/dashboard/reception/visitorlog'));
+const VisitorLogPage = lazy(() => import('src/pages/dashboard/reception/VisitorLog/visitorlog'));
 const GatePassPage = lazy(() => import('src/pages/dashboard/reception/gatepass'));
 const ComplaintPage = lazy(() => import('src/pages/dashboard/reception/complaint'));
 const CallLogPage = lazy(() => import('src/pages/dashboard/reception/calllog'));

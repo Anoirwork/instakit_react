@@ -37,3 +37,46 @@ export const _enquiryList = [
       createdAt: 'February 22, 2025 7:30 PM',
     },
   ];
+
+  export const _vistorLogEntries = [
+    {
+        logNumber: "RVLSM/25/001",
+        entryAt: "February 24, 2025 5:30 AM",
+        type: "Other",
+        name: "Sarah Smith",
+        purpose: "Fee Payment",
+        whomToMeet: "-",
+        visitorCount: 1,
+        createdAt: "February 24, 2025 9:30 AM"
+    },
+    {
+        logNumber: "RVLSM/25/002",
+        entryAt: "February 24, 2025 5:30 AM",
+        type: "Other",
+        name: "Michael Brown",
+        purpose: "Fee Payment",
+        whomToMeet: "-",
+        visitorCount: 1,
+        createdAt: "February 24, 2025 9:30 AM"
+    },
+    {
+        logNumber: "RVLSM/25/003",
+        entryAt: "February 24, 2025 5:30 AM",
+        type: "Mark Exit",
+        name: "Maya Patel",
+        purpose: "Fee Payment",
+        whomToMeet: "-",
+        visitorCount: 1,
+        createdAt: "February 24, 2025 9:30 AM"
+    },
+    {
+        logNumber: "RVLSM/25/004",
+        entryAt: "February 24, 2025 5:30 AM",
+        type: "Mark Exit",
+        name: "Ravi Ramsen",
+        purpose: "Admission",
+        whomToMeet: "-",
+        visitorCount: 1,
+        createdAt: "February 24, 2025 9:30 AM"
+    }
+];

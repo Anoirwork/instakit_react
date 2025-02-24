@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from 'src/config-global';
 
-import { UserCardsView } from 'src/sections/user/view';
+import { VisitorLogListView } from './components/VisitorLogListView';
 
 // ----------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <UserCardsView />
+      <VisitorLogListView />
     </>
   );
 }
